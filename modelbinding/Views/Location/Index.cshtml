@@ -1,0 +1,101 @@
+﻿@model modelbinding.Models.CitiesInfo;
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h3>Country State City</h3>
+
+            <div class="row">
+                <div class="col-md-3">Country</div>
+                <div class="col-md-9">
+                    <select id="ddlCountry" class="form-control" onchange="fnStateList()">
+                        <option value="">Select country</option>
+                        @foreach (var item in Model.CountryInfosList)
+                        {
+                            <option value="@item.CId">@item.CName</option>
+
+                        }
+                    </select>
+                    @*<select id="ddlCountry" class="form-control" asp-items="@(new SelectList(Model.CountryInfosList,"CId","CNAme"))" onchange="fnStateList()">
+
+                    </select>*@
+
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-3">State</div>
+                <div class="col-md-9">
+                    <select id="ddlState" class="form-control" onchange="fnCitiList()">
+                        <option value="">Select State</option>
+                        <option value="1">Bihar</option>
+                        <option value="2">Delhi</option>
+
+                    </select>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-3">City</div>
+                <div class="col-md-9">
+                    <select id="ddlCity" class="form-control">
+                        <option value="">Select City</option>
+                        <option value="1">Delhi</option>
+                        <option value="2">Patna</option>
+                        <option value="3">Mumbai</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<script type="text/javascript">
+    function fnStateList(){
+        var StateName= $("#ddlState");
+        StateName.empty();
+
+        $.ajax({
+            type:"POST",
+            url: "@Url.Action("StateData","Location")",
+                data:{cid : $("#ddlCountry").val() },
+                dataType: "json",
+                success:function(result){
+                    console.log(result);
+                    StateName.append(`<option value="">Select State</option>`);
+                    $.each(result.stateInfosList, function (index, raj) {
+                    StateName.append(`<option value="${raj.sId}">${raj.sName}</option>`)
+                    });
+                },
+                error:function(req, status, error){
+                }
+        });
+    }
+
+    function fnCitiList() {
+        var CityName = $("#ddlCity");
+        CityName.empty();
+
+        $.ajax({
+            type: "POST",
+            url: "@Url.Action("CityData","Location")",
+            data: { sid: $("#ddlState").val() },
+            dataType: "json",
+            success: function (result) {
+                console.log(result);
+                CityName.append(`<option value="">Select City</option>`);
+                $.each(result.cityInfosList, function (index, raj) {
+                    CityName.append(`<option value="${raj.cityId}">${raj.cityName}</option>`)
+                });
+            },
+            error: function (req, status, error) {
+            }
+        });
+    }
+
+</script>
