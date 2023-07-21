@@ -8,15 +8,29 @@ namespace modelbinding.Controllers
     {
         public IActionResult Index()
         {
-            CitiesInfo model = new CitiesInfo();
+           // CitiesInfo model = new CitiesInfo();
            // model.CountryInfosList.Add(new CountryInfo { CId = 0, CName = "Select Country" });
+            //model.CountryInfosList.Add(new CountryInfo { CId = 101, CName = "India" });
+            //model.CountryInfosList.Add(new CountryInfo { CId = 102, CName = "Pakistan" });
+            //model.CountryInfosList.Add(new CountryInfo { CId = 103, CName = "England" });
+            //model.CountryInfosList.Add(new CountryInfo { CId = 104, CName = "China" });
+            //model.CountryInfosList.Add(new CountryInfo { CId = 105, CName = "America" });
+
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult CountryData()
+        {
+            CitiesInfo model = new CitiesInfo();
+            // model.CountryInfosList.Add(new CountryInfo { CId = 0, CName = "Select Country" });
             model.CountryInfosList.Add(new CountryInfo { CId = 101, CName = "India" });
             model.CountryInfosList.Add(new CountryInfo { CId = 102, CName = "Pakistan" });
             model.CountryInfosList.Add(new CountryInfo { CId = 103, CName = "England" });
             model.CountryInfosList.Add(new CountryInfo { CId = 104, CName = "China" });
             model.CountryInfosList.Add(new CountryInfo { CId = 105, CName = "America" });
 
-            return View(model);
+            return Json(model);
         }
 
         [HttpPost]
@@ -45,7 +59,7 @@ namespace modelbinding.Controllers
         {
             List<CityInfo> citi = new List<CityInfo>()
             {
-                new CityInfo(){CityId=1,SId=1,CityName="Patna"},
+                new CityInfo(){CityId=1,SId=1,CityName="Lukhnow"},
                 new CityInfo(){CityId=2,SId=1,CityName="Allahbad"},
                 new CityInfo(){CityId=3,SId=2,CityName="Amritsar"},
                 new CityInfo(){CityId=4,SId=2,CityName="Chandigarh"},

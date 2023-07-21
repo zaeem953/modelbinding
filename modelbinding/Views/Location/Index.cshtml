@@ -11,17 +11,20 @@
             <div class="row">
                 <div class="col-md-3">Country</div>
                 <div class="col-md-9">
-                    <select id="ddlCountry" class="form-control" onchange="fnStateList()">
+                    @*<select id="ddlCountry" class="form-control" onchange="fnStateList()">
                         <option value="">Select country</option>
                         @foreach (var item in Model.CountryInfosList)
                         {
                             <option value="@item.CId">@item.CName</option>
 
                         }
-                    </select>
+                    </select>*@
                     @*<select id="ddlCountry" class="form-control" asp-items="@(new SelectList(Model.CountryInfosList,"CId","CNAme"))" onchange="fnStateList()">
 
                     </select>*@
+                    <select id="ddlCountry" class="form-control" onchange="fnStateList()">
+
+                    </select>
 
                 </div>
             </div>
@@ -55,7 +58,35 @@
 
 </div>
 
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+
 <script type="text/javascript">
+
+    $(document).ready(function (){
+        fnCountryList();
+    });
+
+    function fnCountryList() {
+        var CountryName = $("#ddlCountry");
+        CountryName.empty();
+
+        $.ajax({
+            type: "POST",
+            url: "@Url.Action("CountryData","Location")",
+            dataType: "json",
+            success: function (result) {
+                console.log(result);
+                CountryName.append(`<option value="">Select Country</option>`);
+                $.each(result.countryInfosList, function (index, raj) {
+                    CountryName.append(`<option value="${raj.cId}">${raj.cName}</option>`)
+                });
+                fnCitiList();
+            },
+            error: function (req, status, error) {
+            }
+        });
+    }
+
     function fnStateList(){
         var StateName= $("#ddlState");
         StateName.empty();
@@ -71,6 +102,7 @@
                     $.each(result.stateInfosList, function (index, raj) {
                     StateName.append(`<option value="${raj.sId}">${raj.sName}</option>`)
                     });
+                fnCitiList();
                 },
                 error:function(req, status, error){
                 }
