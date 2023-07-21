@@ -6,7 +6,39 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12">
-            <h3>Country State City</h3>
+            <h3>Form</h3>
+
+            <div class="row">
+                <div class="col-md-3">
+                    Name
+                </div>
+                <div class="col-md-9">
+                    <input type="text"  id="txtName" class="form-control"/>
+                    <span id="errNameDiv" style="color:red"></span>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-3">
+                   Mobile Number
+                </div>
+                <div class="col-md-9">
+                    <input type="text" id="txtMobileNo" class="form-control" />
+                    <span id="errMobileDiv" style="color:red"></span>
+
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-3">
+                    Email ID
+                </div>
+                <div class="col-md-9">
+                    <input type="text" id="txtEmail" class="form-control" />
+                    <span id="errEmailDiv" style="color:red"></span>
+
+                </div>
+            </div>
 
             <div class="row">
                 <div class="col-md-3">Country</div>
@@ -52,6 +84,15 @@
                     </select>
                 </div>
             </div>
+            <div class="row">
+                <div class="col-md-3">
+                </div>
+                <div class="col-md-9">
+                    <a href="javascript:void(0)" class="btn btn-primary" onclick="SaveRecord()">Submit</a>
+                    <a href="javascript:void(0)" class="btn btn-warning">Reset</a>
+
+                </div>
+            </div>
         </div>
 
     </div>
@@ -61,6 +102,43 @@
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
 
 <script type="text/javascript">
+
+    function SaveRecord(){
+        if(!ValidateInfo()){
+            return false
+        }
+        alert("Validate Form");
+    }
+
+    function ValidateInfo(){
+        var result= true;
+        if($('#txtName').val().trim().length==0){
+            $("#errNameDiv").show();
+            $("#errNameDiv").text("Your Name Is Required");
+            return false;
+        }
+        else{
+            $("#errNameDiv").hide();
+        }
+
+        if ($('#txtMobileNo').val().trim().length == 0) {
+            $("#errMobileDiv").show();
+            $("#errMobileDiv").text("Your Mobile Number Is Required");
+            return false;
+        }
+        else {
+            $("#errMobileDiv").hide();
+        }
+
+        if ($('#txtEmail').val().trim().length == 0) {
+            $("#errEmailDiv").show();
+            $("#errEmailDiv").text("Your Email Is Required");
+            return false;
+        }
+        else {
+            $("#errEmailDiv").hide();
+        }
+    }
 
     $(document).ready(function (){
         fnCountryList();

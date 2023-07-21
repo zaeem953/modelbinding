@@ -59,7 +59,7 @@ namespace modelbinding.Controllers
         {
             List<CityInfo> citi = new List<CityInfo>()
             {
-                new CityInfo(){CityId=1,SId=1,CityName="Lukhnow"},
+                new CityInfo(){CityId=1,SId=1,CityName="Luckhnow"},
                 new CityInfo(){CityId=2,SId=1,CityName="Allahbad"},
                 new CityInfo(){CityId=3,SId=2,CityName="Amritsar"},
                 new CityInfo(){CityId=4,SId=2,CityName="Chandigarh"},
